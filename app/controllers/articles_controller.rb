@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
     @articles = Article.all
     respond_to do |format|
       format.json do
-        render json: @articles.to_json(only: [:id, :title], include: {comments: {only: [:id, :content]}})
+        render json: @articles.map {|article| ArticleSerializer.new(article) }.to_json
       end
     end
   end
